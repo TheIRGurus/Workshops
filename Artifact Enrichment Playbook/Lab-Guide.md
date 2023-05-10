@@ -593,3 +593,4 @@ Click on the *Artifacts* tab next.
 - Finally, once the playbook has finished, you will be able to see the user's queried information in the *Artifacts* tab on the **LDAP Query results**:
 
   ![Tech Bootcamp Lab Infrastructure](images/case-artifact-ldap_results.png) 
+
