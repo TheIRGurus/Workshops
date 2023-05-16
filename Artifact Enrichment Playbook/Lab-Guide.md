@@ -187,20 +187,20 @@ The expectation/requirement for you to complete this Lab:
  ```bash
 [fn_ldap_utilities]
 # Ip address of the LDAP Server
-ldap_server = xxx.xxx.xxx.xxx
+ldap_server = 169.62.31.242
 # Use port 636 if using ssl or port 389 if not using ssl
 ldap_port = 389
 ldap_use_ssl = False
 # Can be ANONYMOUS, SIMPLE or NTLM
 ldap_auth = NTLM
 # DN of LDAP account
-ldap_user_dn = CN=Username,CN=Users,DC=example,DC=com
+ldap_user_dn = CN=sa-soar,CN=Users,DC=company-lab,DC=net
 # Password for the LDAP account
-ldap_password = password
+ldap_password = Password4Admin2
 # Windows NTLM user
-ldap_user_ntlm = Domain\User
-ldap_is_active_directory = False
-ldap_connect_timeout = 10
+ldap_user_ntlm = Company-Lab\sa-soar
+ldap_is_active_directory = True
+ldap_connect_timeout = 30
 
 #[fn_ldap_utilities:Domain2]
 ## Ip address of the LDAP Server
@@ -371,7 +371,7 @@ ldap_connect_timeout = 10
 ```py
 inputs.ldap_search_param = artifact.value
 inputs.ldap_search_attributes = 'SamAccountName,cn,sn,mail,telephoneNumber'
-inputs.ldap_search_base = 'DC=example,DC=com'
+inputs.ldap_search_base = 'DC=company-lab,DC=net'
 inputs.ldap_search_filter = '(&(objectclass=user)(|(SamAccountName=%ldap_param%)))'
 ```
 
@@ -567,7 +567,7 @@ Click on the *Artifacts* tab next.
 
 - Enter the value below as the username to use for testing.
 
->testusername
+>CraigF
 
   ![Tech Bootcamp Lab Infrastructure](images/case-artifacts-create.png)
 
