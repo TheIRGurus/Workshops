@@ -370,9 +370,9 @@ ldap_connect_timeout = 30
 
 ```py
 inputs.ldap_search_param = artifact.value
-inputs.ldap_search_attributes = 'SamAccountName,cn,sn,mail,telephoneNumber'
+inputs.ldap_search_attributes = 'SamAccountName,displayName,sn,mail,telephoneNumber'
 inputs.ldap_search_base = 'DC=company-lab,DC=net'
-inputs.ldap_search_filter = '(&(objectclass=user)(|(SamAccountName=%ldap_param%)))'
+inputs.ldap_search_filter = '(&(objectclass=user)(SamAccountName=%ldap_param%))'
 ```
 
   ![Tech Bootcamp Lab Infrastructure](images/function-input-script.png)
@@ -407,13 +407,11 @@ ldap_output = playbook.functions.results.ldap_search_output
 
 #  Globals
 ENTRY_TO_DATATABLE_MAP = {
-   "sAMAccountName": "dt_username",
-   "cn": "dt_user_name",
-   "mail": "dt_email",
-   "title": "dt_job_title",
-   "department": "dt_department",
-   "physicalDeliveryOfficeName": "dt_location",
-   "manager": "dt_manager"
+   "sAMAccountName": "uid",
+   "mail": "email_address",
+   "displayName": "fullname",
+   "sn": "surname",
+   "telephoneNumber": "telephone_number"
 }
 
 
