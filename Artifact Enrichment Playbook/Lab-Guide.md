@@ -187,19 +187,19 @@ The expectation/requirement for you to complete this Lab:
  ```bash
 [fn_ldap_utilities]
 # Ip address of the LDAP Server
-ldap_server = ldap.themumaws.com
+ldap_server = ldap.mumaw-lab.net
 # Use port 636 if using ssl or port 389 if not using ssl
 ldap_port = 389
 ldap_use_ssl = False
 # Can be ANONYMOUS, SIMPLE or NTLM
-ldap_auth = NTLM
+ldap_auth = SIMPLE
 # DN of LDAP account
-ldap_user_dn = CN=sa-soar,CN=Users,DC=mumaw-lab,DC=net
+ldap_user_dn = cn=admin,dc=ibm,dc=edu
 # Password for the LDAP account
-ldap_password = Password4Admin2
+ldap_password = zZr4FZhmuIGfxCOPxXQtRnukRH25SXoz
 # Windows NTLM user
-ldap_user_ntlm = Mumaw-Lab\sa-soar
-ldap_is_active_directory = True
+ldap_user_ntlm = 
+ldap_is_active_directory = False
 ldap_connect_timeout = 30
  ```
 
@@ -353,9 +353,9 @@ ldap_connect_timeout = 30
 
 ```py
 inputs.ldap_search_param = artifact.value
-inputs.ldap_search_attributes = 'SamAccountName,displayName,sn,mail,telephoneNumber'
-inputs.ldap_search_base = 'DC=mumaw-lab,DC=net'
-inputs.ldap_search_filter = '(&(objectclass=user)(SamAccountName=%ldap_param%))'
+inputs.ldap_search_attributes = 'uid,cn,title,departmentNumber,mail,manager'
+inputs.ldap_search_base = 'ou=LDAP-Lab,o=TechXchange,dc=ibm,dc=edu'
+inputs.ldap_search_filter = '(&(objectClass=inetOrgPerson)(|(uid=%ldap_param%)(mail=%ldap_param%)))'
 ```
 
   ![Tech Bootcamp Lab Infrastructure](images/function-input-script.png)
@@ -385,34 +385,42 @@ Click the blue **Save** button to continue.
 - Copy and Paste the following Python code into the *Code* section at the bottom of the *Create Script* page.
 
 ```py
-ldap_output = playbook.functions.results.ldap_search_output
+import re
 
+ldap_output = playbook.functions.results.ldap_search_output
 
 #  Globals
 ENTRY_TO_DATATABLE_MAP = {
-   "sAMAccountName": "uid",
-   "mail": "email_address",
-   "displayName": "fullname",
-   "sn": "surname",
-   "telephoneNumber": "telephone_number"
+   "uid": "dt_username",
+   "cn": "dt_name",
+   "mail": "dt_email",
+   "title": "dt_job_title",
+   "departmentNumber": "dt_department",
+   "manager": "dt_manager"
 }
 
 
+regex = re.compile(r'cn=(\S+ \S+),cn')
+
 # Processing if the function is a success
-if(ldap_output.success):
-  for entry in ldap_output.entries:
-    # Add Row
-    row = incident.addRow("ldap_query_results")
-    for k in ENTRY_TO_DATATABLE_MAP:
-        try:
-          # If 'entry[k]' is empty
-          if not len(entry[k]):
-            row[ENTRY_TO_DATATABLE_MAP[k]] = "N/A"
-          # Handle for OpenLdap
-          else:
-            row[ENTRY_TO_DATATABLE_MAP[k]] = entry[k]
-        except IndexError:
-          row[ENTRY_TO_DATATABLE_MAP[k]] = "N/A"
+if ldap_output.success:
+    for entry in ldap_output['content']['entries']:
+        # Add Row
+        row = incident.addRow('ldap_users')
+        for k in ENTRY_TO_DATATABLE_MAP:
+            try:
+                # If 'entry[k]' is empty
+                if not len(entry[k]):
+                    row[ENTRY_TO_DATATABLE_MAP[k]] = "N/A"
+                # Handle for OpenLdap
+                else:
+                    if k == 'manager':
+                        manager = re.match(regex,entry[k][0]).groups()[0]
+                        row[ENTRY_TO_DATATABLE_MAP[k]] = manager
+                    else:
+                        row[ENTRY_TO_DATATABLE_MAP[k]] = entry[k][0]
+            except IndexError:
+                row[ENTRY_TO_DATATABLE_MAP[k]] = "N/A"
 ```
 
   ![Tech Bootcamp Lab Infrastructure](images/playbook-script-code.png)
@@ -548,7 +556,7 @@ Click on the *Artifacts* tab next.
 
 - Enter the value below as the username to use for testing.
 
->CraigF
+>nmumaw
 
   ![Tech Bootcamp Lab Infrastructure](images/case-artifacts-create.png)
 
