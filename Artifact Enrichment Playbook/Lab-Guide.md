@@ -1,12 +1,10 @@
 
-
-
 ![screenshot](./images/IBM-Security.png)
 
-# Artifact Enrichment Playbook Lab
+# Artifact Enrichment Playbook Guide
 
 
-***Nick Mumaw & Craig Finley, Americas Technical Sales Lead, SOAR***
+***Nick Mumaw & Andrew Campagna, Americas Technical Sales Lead, SOAR***
 
 ---
 
@@ -34,11 +32,11 @@
 
 ---
 
-# *Expectations/Requirements*
+## *Expectations/Requirements*
 
 The expectation/requirement for you to complete this Lab:
 
-  - Access to a CP4S Case Management or Standalone SOAR Instance with AppHost connected.
+  - Access to a QRadar Suite Unified Analyst Experience (UAX) or Standalone IBM Security QRadar SOAR Instance with AppHost connected.
     >**Note:**
     >
     >Depending on which version you have your location to settings might be different.
@@ -48,11 +46,11 @@ The expectation/requirement for you to complete this Lab:
 
 ---
 
-# **Part I: *The Set Up***
+## **Part I: *The Set Up***
 
-## Installing Apps
+### Installing Apps
 
-### Step 1: *Download LDAP and Active Directory Functions for SOAR from X-Force Exchange / App Exchange*
+#### Step 1: *Download LDAP and Active Directory Functions for SOAR from X-Force Exchange / App Exchange*
 
 - Navigate to the IBM X-Force Exchange / App Exchange by clicking [here](https://exchange.xforce.ibmcloud.com/hub).
 
@@ -86,9 +84,9 @@ The expectation/requirement for you to complete this Lab:
 
 ---
 
-### Step 2: *Installing LDAP and Active Directory Functions for SOAR Application*
+#### Step 2: *Installing LDAP and Active Directory Functions for SOAR Application*
 
-- Once properly authenticated to XDR, you should see a screen similar to below:
+- Once properly authenticated to QRadar Suite, you should see a screen similar to below:
 
   ![Tech Bootcamp Lab Infrastructure](images/cp4s-menu-dropdown.png)
   
@@ -144,7 +142,7 @@ The expectation/requirement for you to complete this Lab:
 
 ---
 
-### Step 3: *Configure LDAP and Active Directory Functions For SOAR Application*
+#### Step 3: *Configure LDAP and Active Directory Functions For SOAR Application*
 
 - Once closed the **Install App Wizard** should bring you to the *Details* tab of the newly downloaded application. Click onto the *Configuration* tab:
 
@@ -262,9 +260,9 @@ ldap_connect_timeout = 30
 
 ---
 
-## Playbook Design: Create Your Automation Playbook
+### Playbook Design: Create Your Automation Playbook
 
-### Step 4: *Create Playbook Scope and Conditions*
+#### Step 4: *Create Playbook Scope and Conditions*
 
 - Click the three horizontal line icon in the upper left corner which should produce a large drop down menu: 
 
@@ -330,7 +328,7 @@ ldap_connect_timeout = 30
 
 ---
 
-### Step 5: *Adding and Defining the LDAP Search Function*
+#### Step 5: *Adding and Defining the LDAP Search Function*
 
 - The Playbook begins with adding the function, *LDAP Utilities: Search*, to the canvas and attaching it to the starting node. To do this, Click on the icon that resembles a `f` in a circle on the left hand side depicted below:
 
@@ -385,7 +383,7 @@ Click the blue **Save** button to continue.
 
 ---
 
-### Step 6: *Creating a Parsing Script for the Results*
+#### Step 6: *Creating a Parsing Script for the Results*
 
 - Next, click on the icon, `</>`, that represents **Scripts** as shown below that will open up a menu view:
  
@@ -458,7 +456,7 @@ Once that the script is completed, click the blue **Create** button.
 
 ---
 
-### Step 7: *Saving and Enabling your Playbook*
+#### Step 7: *Saving and Enabling your Playbook*
 
 - After completing the playbook build we have 1 final step, Save and Enable your playbook. Those can be done by choosing the options in the top right, **Save** with the save disk icon and then clicking the blue **Enable playbook** button:
  
@@ -471,9 +469,9 @@ Once that the script is completed, click the blue **Create** button.
 
 ---
 
-## Layout Design: Cleaning up your system
+### Layout Design: Cleaning up your system
 
-### Step 8: *Disabling Unused Rules*
+#### Step 8: *Disabling Unused Rules*
 
 - Click the icon in the upper left most corner of the screen to produce the main **Menu** drop down:
  
@@ -499,7 +497,7 @@ You should now have cleaned up extra rules that will run or show up in menus tha
 
 ---
 
-### Step 9: *Adding the LDAP DataTable to your Incidents*
+#### Step 9: *Adding the LDAP DataTable to your Incidents*
 
 - To change the over all layout of an incident, we must go into the **Customization Settings** by clicking the icon in the upper left most corner of the screen to produce the main **Menu** drop down:
 
@@ -525,13 +523,13 @@ After click the Blue **Save** button, the next time you load an incident you wil
 
 ---
 
-# **Part II:** *Using the User Enrichment Playbook*
+## **Part II:** *Using the User Enrichment Playbook*
 
-## Bringing It All Together
+### Bringing It All Together
 
 Now that your playbook is complete, we will use it to lookup a user from our demo LDAP System.
 
-### Step 10: *Create a Sample Incident*
+#### Step 10: *Create a Sample Incident*
 
 - From the `Homepage`, Select the **Case Management** application.
 
@@ -547,7 +545,7 @@ Now that your playbook is complete, we will use it to lookup a user from our dem
 
 ---
 
-### Step 11: *Adding a new User Artifact*
+#### Step 11: *Adding a new User Artifact*
 
 - Once in the case, you will land on the *Overview* page of the **Case**:
 
@@ -573,7 +571,7 @@ Click on the *Artifacts* tab next.
 
 ---
 
-### Step 12: *Perform User Lookup using Playbook*
+#### Step 12: *Perform User Lookup using Playbook*
 
 - Use the vertical ellipsis, **...**, menu icon next to the new *User Account Artifact* to select the **LDAP: User Lookup** playbook.  
 
