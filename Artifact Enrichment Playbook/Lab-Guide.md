@@ -10,25 +10,27 @@
 
 **Table of Contents:**
 
-  - [Expectations/Requirements](#expectationsrequirements)
-  - [Part I: The Set Up](#part-i-the-set-up)
-      - [Installing Apps](#installing-apps)
-        - [Step 1: Download LDAP and Active Directory Functions for SOAR](#step-1-download-ldap-and-active-directory-functions-for-soar-from-x-force-exchange--app-exchange)
-        - [Step 2: Installing LDAP and Active Directory Functions for SOAR](#step-2-installing-ldap-and-active-directory-functions-for-soar-application)
-        - [Step 3: Configure LDAP and Active Directory Functions for SOAR](#step-3-configure-ldap-and-active-directory-functions-for-soar-application)
-      - [Playbook Design: Create your Automation Playbook](#playbook-design-create-your-automation-playbook)
-        - [Step 4: Create Playbook Scope and Conditions](#step-4-create-playbook-scope-and-conditions)
-        - [Step 5: Adding and Defining the LDAP Search Function](#step-5-adding-and-defining-the-ldap-search-function)
-        - [Step 6: Creating a Parsing Script for the Results](#step-6-creating-a-parsing-script-for-the-results)
-        - [Step 7: Saving and Enabling your Playbook](#step-7-saving-and-enabling-your-playbook)
-      - [Layout Design: Cleaning up your system](#layout-design-cleaning-up-your-system)
-        - [Step 8: Disabling Unused Rules](#step-8-disabling-unused-rules)
-        - [Step 9: Adding the LDAP DataTable to your Incidents](#step-9-adding-the-ldap-datatable-to-your-incidents)
-   - [Part II: Using the User Enrichment Playbook](#part-ii-using-the-user-enrichment-playbook)
-      - [Bringing it All Together](#bringing-it-all-together)
-        - [Step 10: Create a Sample Incident](#step-10-create-a-sample-incident)
-        - [Step 11: Adding a New User Artifact](#step-11-adding-a-new-user-artifact)
-        - [Step 12: Perform User Lookup using Playbook](#step-12-perform-user-lookup-using-playbook)
+- [Artifact Enrichment Playbook Guide](#artifact-enrichment-playbook-guide)
+  - [*Expectations/Requirements*](#expectationsrequirements)
+  - [**Part I: *The Set Up***](#part-i-the-set-up)
+    - [Installing Apps](#installing-apps)
+      - [Step 1: *Download LDAP and Active Directory Functions for SOAR from X-Force Exchange / App Exchange*](#step-1-download-ldap-and-active-directory-functions-for-soar-from-x-force-exchange--app-exchange)
+      - [Step 2: *Installing LDAP and Active Directory Functions for SOAR Application*](#step-2-installing-ldap-and-active-directory-functions-for-soar-application)
+      - [Step 3: *Configure LDAP and Active Directory Functions For SOAR Application*](#step-3-configure-ldap-and-active-directory-functions-for-soar-application)
+    - [Playbook Design: Create Your Automation Playbook](#playbook-design-create-your-automation-playbook)
+      - [Step 4: *Create Playbook Scope and Conditions*](#step-4-create-playbook-scope-and-conditions)
+      - [Step 5: *Adding and Defining the LDAP Search Function*](#step-5-adding-and-defining-the-ldap-search-function)
+      - [Step 6: *Creating a Parsing Script for the Results*](#step-6-creating-a-parsing-script-for-the-results)
+      - [Step 7: *Saving and Enabling your Playbook*](#step-7-saving-and-enabling-your-playbook)
+    - [Layout Design: Cleaning up your system](#layout-design-cleaning-up-your-system)
+      - [Step 8: *Disabling Unused Rules*](#step-8-disabling-unused-rules)
+      - [Step 9: *Create the Data Table For LDAP Users*](#step-9-create-the-data-table-for-ldap-users)
+      - [Step 10: *Adding the LDAP DataTable to your Incidents*](#step-10-adding-the-ldap-datatable-to-your-incidents)
+  - [**Part II:** *Using the User Enrichment Playbook*](#part-ii-using-the-user-enrichment-playbook)
+    - [Bringing It All Together](#bringing-it-all-together)
+      - [Step 11: *Create a Sample Incident*](#step-11-create-a-sample-incident)
+      - [Step 12: *Adding a new User Artifact*](#step-12-adding-a-new-user-artifact)
+      - [Step 13: *Perform User Lookup using Playbook*](#step-13-perform-user-lookup-using-playbook)
 
 ---
 
@@ -488,7 +490,65 @@ You should now have cleaned up extra rules that will run or show up in menus tha
 
 ---
 
-#### Step 9: *Adding the LDAP DataTable to your Incidents*
+#### Step 9: *Create the Data Table For LDAP Users*
+
+- Click the icon in the upper left most corner of the screen to produce the main **Menu** drop down:
+ 
+ ![Tech Bootcamp Lab Infrastructure](images/cp4s-menu-dropdown.png)
+
+- From there under *Application Settings*, select **Case Management** and then **Customization**:
+ 
+ ![Tech Bootcamp Lab Infrastructure](images/case-management-customizations.png)
+
+- At the **Customization  Settings**, under **New Incident Wizard**, select **Incident Tabs**:
+
+ ![Tech Bootcamp Lab Infrastructure](images/customizations-layouts.png)
+
+- The **Incident Tabs** produces a drop down menu. Select **Artifacts**
+ 
+ ![Tech Bootcamp Lab Infrastructure](images/layout-artifacts-tabs.png)
+
+- Click the grey **Add Table** button to kick off the **Create Data Table** install wizard:
+
+ ![Tech Bootcamp Lab Infrastructure](images/artifacts-add-table.png)
+
+- For the *What is the label for this table?* field add: **LDAP Users**: 
+ 
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-name.png)
+ 
+ Click the blue **Next** button to proceed.
+ 
+ > **Note:**
+ > The label name for the Data Table creates an *API Name* automatically in the field below it.
+ >
+
+- For column names, add: **Username**, **Name**, **Email**, **Job Title**, **Department**, and **Manager** exactly as it appears below: 
+ 
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-names-1.png)
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-names-2.png)
+
+ Click the blue **Next** button to continue.
+ 
+- The **Create Data Table** install wizard next takes you through *Configuring columns* 1 through 4. The only modification that we will be making to each column is adding *dt_* to the front of each API name (this is to avoid collisions in field names and data table names). After each change, just click the blue **Next** button: 
+ 
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-field-1.png)
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-field-2.png)
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-field-3.png)
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-field-4.png)
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-field-5.png)
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-field-6.png)
+
+- Click the blue **** button to finish confirming the creation of the Data Table.
+ 
+ ![Tech Bootcamp Lab Infrastructure](images/create-table-column-field-complete.png)
+
+- The data table is now created and will be referenced shortly there after in the lab:
+
+ ![Tech Bootcamp Lab Infrastructure](images/data-table-created-done.png)
+
+---
+
+#### Step 10: *Adding the LDAP DataTable to your Incidents*
 
 - To change the over all layout of an incident, we must go into the **Customization Settings** by clicking the icon in the upper left most corner of the screen to produce the main **Menu** drop down:
 
@@ -510,7 +570,7 @@ You should now have cleaned up extra rules that will run or show up in menus tha
 
   ![Tech Bootcamp Lab Infrastructure](images/layout-artifacts-add-ldap.gif)
 
-After click the Blue **Save** button, the next time you load an incident you will see the **LDAP Query results** data table in the **Artifacts** tab.
+After click the Blue **Save** button, the next time you load an incident you will see the **LDAP Users** data table in the **Artifacts** tab.
 
 ---
 
@@ -520,7 +580,7 @@ After click the Blue **Save** button, the next time you load an incident you wil
 
 Now that your playbook is complete, we will use it to lookup a user from our demo LDAP System.
 
-#### Step 10: *Create a Sample Incident*
+#### Step 11: *Create a Sample Incident*
 
 - From the `Homepage`, Select the **Case Management** application.
 
@@ -536,7 +596,7 @@ Now that your playbook is complete, we will use it to lookup a user from our dem
 
 ---
 
-#### Step 11: *Adding a new User Artifact*
+#### Step 12: *Adding a new User Artifact*
 
 - Once in the case, you will land on the *Overview* page of the **Case**:
 
@@ -562,7 +622,7 @@ Click on the *Artifacts* tab next.
 
 ---
 
-#### Step 12: *Perform User Lookup using Playbook*
+#### Step 13: *Perform User Lookup using Playbook*
 
 - Use the vertical ellipsis, **...**, menu icon next to the new *User Account Artifact* to select the **LDAP: User Lookup** playbook.  
 
@@ -577,6 +637,6 @@ Click on the *Artifacts* tab next.
   ![Tech Bootcamp Lab Infrastructure](images/case-overview-playbook.png)
   ![Tech Bootcamp Lab Infrastructure](images/case-playbook-status.png)
 
-- Finally, once the playbook has finished, you will be able to see the user's queried information in the *Artifacts* tab on the **LDAP Query results**:
+- Finally, once the playbook has finished, you will be able to see the user's queried information in the *Artifacts* tab on the **LDAP Users**:
 
   ![Tech Bootcamp Lab Infrastructure](images/case-artifact-ldap_results.png) 
